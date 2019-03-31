@@ -22,9 +22,7 @@ public class umask
     //example file creation
     try{
     Kernel.creat("//newfile2.lis", (short)0700);
-    }catch(Exception e){
-        e.printStackTrace();
-    }
+    }catch(Exception e){}
     }
     else System.out.println("Invalid umask!");
     

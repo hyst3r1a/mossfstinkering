@@ -139,7 +139,7 @@ public class ls
   private static void print( String name , Stat stat )
   {
     IndexNode heh = new IndexNode();
-    try{Kernel.findIndexNode(name, heh);}catch(Exception e){e.printStackTrace();}
+    try{Kernel.findIndexNode(name, heh);}catch(Exception e){}
     
     // a buffer to fill with a line of output
     StringBuffer s = new StringBuffer() ;

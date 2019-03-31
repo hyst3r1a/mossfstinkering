@@ -477,7 +477,6 @@ public class Kernel
       // return (EACCES) if the file does not exist and the directory
       // in which it is to be created is not writable
       short newMode = (short)(mode & ~Kernel.process.getUmask());      
-      //System.out.println(mode + " and " + newMode);
       currIndexNode.setUid(process.getUid());
       currIndexNode.setGid(process.getGid());
 
@@ -1622,66 +1621,23 @@ Some internal methods.
     return indexNodeNumber ;
   }
 
-  private static IndexNode getIndexNode( String path , IndexNode inode )
-  throws Exception
-{
-  // start with the root file system, root inode
-  FileSystem fileSystem = openFileSystems[ ROOT_FILE_SYSTEM ] ;
-  IndexNode indexNode = getRootIndexNode( ) ;
-  short indexNodeNumber = FileSystem.ROOT_INDEX_NODE_NUMBER ;
-
-  // parse the path until we get to the end
-  StringTokenizer st = new StringTokenizer( path , "/" ) ;
-  while( st.hasMoreTokens() )
-  {
-    String s = st.nextToken() ;
-    if ( ! s.equals("") )
-    {
-      // check to see if it is a directory
-      if( ( indexNode.getMode() & S_IFMT ) != S_IFDIR )
-      {
-        // return (ENOTDIR) if a needed directory is not a directory
-        process.errno = ENOTDIR ;
-        return null ;
-      }
-
-      // check to see if it is readable by the user
-      // ??? tbd
-      // return (EACCES) if a needed directory is not readable
-
-      IndexNode nextIndexNode = new IndexNode() ;
-      // get the next index node corresponding to the token
-      indexNodeNumber = findNextIndexNode( 
-        fileSystem , indexNode , s , nextIndexNode ) ;
-      if( indexNodeNumber < 0 )
-      {
-        // return ENOENT
-        process.errno = ENOENT ;
-        return null ;
-      }
-      indexNode = nextIndexNode ;
-    }
-  }
-  // copy indexNode to inode
-  //indexNode.copy( inode ) ;
-  return indexNode;
-}
+  
 
 public static void chmod(String path, short newmode){
-  IndexNode i = new IndexNode();
+  
   IndexNode nodeToChange = new IndexNode();
   // nodeToChange = getIndexNode(path, i);
   short indexNodeNumber = 0;
   
-   try{ indexNodeNumber = findIndexNode( path , nodeToChange ) ;}catch(Exception e){e.printStackTrace();}
+   try{ indexNodeNumber = findIndexNode( path , nodeToChange ) ;}catch(Exception e){}
    FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM] ;
-   try{fileSystem.readIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){e.printStackTrace();}
+   try{fileSystem.readIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
    
   if(process.getUid() == 0 || process.getUid() == nodeToChange.getUid()){
     newmode = Short.parseShort(Short.toString(newmode),8);
     if(newmode >= 0 && newmode <= 777){
       nodeToChange.setMode(newmode);
-     try{ fileSystem.writeIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){e.printStackTrace();}
+     try{ fileSystem.writeIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
       System.out.println("Successfully changed " + path +" mode");
     }else{
       System.out.println("Invalid mode!");
