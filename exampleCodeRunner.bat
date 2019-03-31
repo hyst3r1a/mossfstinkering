@@ -4,7 +4,7 @@
 javac *.java
 
 @echo Using new FS:
-java mkfs filesys.dat 256 16
+java mkfs filesys.dat 256 64
 @echo LS:
 java ls /
 @echo Creating new file. Check its mode:
@@ -16,5 +16,10 @@ java ls /
 java umask 325
 
 @echo Check new file's mode. LS:
+java ls /
+
+@echo Now we try using chmod() to update file permissions
+java chmod /newfile.lis 400
+@echo Now check ls:
 java ls /
 PAUSE

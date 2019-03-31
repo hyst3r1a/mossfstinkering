@@ -39,6 +39,7 @@ public class ls
   {
     // initialize the file system simulator kernel
     Kernel.initialize() ;
+   
 
     // for each path-name given
     for( int i = 0 ; i < args.length ; i ++ )
@@ -137,13 +138,15 @@ public class ls
    */
   private static void print( String name , Stat stat )
   {
+    IndexNode heh = new IndexNode();
+    try{Kernel.findIndexNode(name, heh);}catch(Exception e){e.printStackTrace();}
+    
     // a buffer to fill with a line of output
     StringBuffer s = new StringBuffer() ;
 
     // a temporary string
     String t = null ;
-
-    // append the inode number in a field of 5
+  
     t = Integer.toString( stat.getIno() ) ;
     for( int i = 0 ; i < 5 - t.length() ; i ++ )
       s.append( ' ' ) ;
@@ -157,17 +160,17 @@ public class ls
     s.append( t ) ;
     s.append( ' ' ) ;
 
-    t = Integer.toString( stat.getUid());
+    t = Integer.toString( heh.getUid());
     s.append("Uid ");
     s.append(t);
     s.append(' ');
 
-    t = Integer.toString( stat.getGid());
+    t = Integer.toString( heh.getGid());
     s.append("Gid ");
     s.append(t);
     s.append(' ');
 
-    t = Integer.toOctalString(stat.getMode());
+    t = Integer.toOctalString(heh.getMode());
     s.append("Mode ");
     s.append(t);
     s.append(' ');

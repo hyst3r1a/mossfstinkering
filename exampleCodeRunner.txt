@@ -1,0 +1,16 @@
+cd C:\Users\Mishon\Desktop\SysProg
+
+javac *.java
+
+echo "Using pre-created FS. LS:"
+java ls /
+echo "Creating new file. Check its umask:"
+java tee /newfile.lis
+echo "LS:"
+java ls /
+echo "Running umask: example value is 325"
+java umask 325
+echo "Creating new file:"
+java tee /newfile2.lis
+echo "Check new file's umask. LS:"
+java ls /
