@@ -138,8 +138,8 @@ public class ls
    */
   private static void print( String name , Stat stat )
   {
-    IndexNode heh = new IndexNode();
-    try{Kernel.findIndexNode(name, heh);}catch(Exception e){}
+    IndexNode IndexAccess = new IndexNode();
+    try{Kernel.findIndexNode(name, IndexAccess);}catch(Exception e){}
     
     // a buffer to fill with a line of output
     StringBuffer s = new StringBuffer() ;
@@ -160,19 +160,19 @@ public class ls
     s.append( t ) ;
     s.append( ' ' ) ;
 
-    t = Integer.toString( heh.getUid());
+    t = Integer.toString( IndexAccess.getUid());
     s.append("Uid ");
     s.append(t);
     s.append(' ');
 
-    t = Integer.toString( heh.getGid());
+    t = Integer.toString( IndexAccess.getGid());
     s.append("Gid ");
     s.append(t);
     s.append(' ');
 
-    t = Integer.toOctalString(heh.getMode());
+    t = Integer.toOctalString(IndexAccess.getMode());
     s.append("Mode ");
-    s.append(t);
+    s.append(t.substring(0, 3));
     s.append(' ');
 
     // append the name

@@ -4,11 +4,11 @@
 javac *.java
 
 @echo Using new FS:
-java mkfs filesys.dat 256 64
+java mkfs filesys.dat 64 8
 @echo LS:
 java ls /
 @echo Creating new file. Check its mode:
-dir /b *.java | java tee /newfile.lis
+echo LAB2 | java tee /newfile.lis
 @echo LS:
 java ls /
 @echo Running umask: standard value: 22; example value: 325. Also creates a new file with a new mode

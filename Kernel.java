@@ -4,6 +4,9 @@
  */
 
 import java.util.StringTokenizer ;
+
+import com.sun.org.apache.xpath.internal.operations.String;
+
 import java.util.Properties ;
 import java.io.FileInputStream ;
 import java.io.IOException ;
@@ -383,10 +386,11 @@ public class Kernel
     return 0 ;
   }
 
-  public static int umask(short newMask) {
-    int oldumask = process.getUmask();
-    if(newMask>=0 && newMask<=777){
-      process.setUmask(newMask);
+  public static int umask(Short umaskOctal) {
+    short oldumask = process.getUmask();
+    //short umaskOctal = Short.parseshort(newMask, 8);
+    if(umaskOctal>=0 && umaskOctal<=0777){
+      process.setUmask(umaskOctal);
       System.out.println("Success umask change!");
       return oldumask;
     }
@@ -1634,8 +1638,8 @@ public static void chmod(String path, short newmode){
    try{fileSystem.readIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
    
   if(process.getUid() == 0 || process.getUid() == nodeToChange.getUid()){
-    newmode = Short.parseShort(Short.toString(newmode),8);
-    if(newmode >= 0 && newmode <= 777){
+    //newmode = Short.parseShort(Short.toString(newmode),8);
+    if(newmode >= 0 && newmode <= 0777){
       nodeToChange.setMode(newmode);
      try{ fileSystem.writeIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
       System.out.println("Successfully changed " + path +" mode");
