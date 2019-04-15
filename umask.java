@@ -16,7 +16,7 @@ public class umask
   {
     // initialize the file system simulator kernel
     Kernel.initialize();
-    short newUmask = Short.parseshort(args[0], 8);
+    short newUmask = Short.parseShort(args[0], 8);
     if(newUmask >= 0 && newUmask<= 0777){
     System.out.println("Old umask: " + Integer.toOctalString(Kernel.umask((short)newUmask)));
     //example file creation

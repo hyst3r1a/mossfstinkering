@@ -12,7 +12,7 @@ public class chmod
   {
     // initialize the file system simulator kernel
     Kernel.initialize();
-    Kernel.chmod(args[0], Short.parseShort(args[1]), 8);
+    Kernel.chmod(args[0], Short.parseShort(args[1], 8));
   }
 
  

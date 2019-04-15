@@ -5,8 +5,8 @@
 
 import java.util.StringTokenizer ;
 
-import com.sun.org.apache.xpath.internal.operations.String;
-
+//import com.sun.org.apache.xpath.internal.operations.String;
+import java.lang.String;
 import java.util.Properties ;
 import java.io.FileInputStream ;
 import java.io.IOException ;
