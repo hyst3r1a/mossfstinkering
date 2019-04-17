@@ -174,6 +174,36 @@ public class ls
     s.append("Mode ");
     s.append(t.substring(0, 3));
     s.append(' ');
+    for(int i = 0; i<3; i++){
+      switch(t.charAt(i)){
+        case '0':
+        s.append("---");
+        break;
+         case '1':
+         s.append("--x");
+        break;
+         case '2':
+         s.append("-w-");
+        break;
+         case '3':
+         s.append("-wx");
+        break;
+         case '4':
+         s.append("r--");
+        break;
+         case '5':
+         s.append("r-x");
+        break;
+         case '6':
+         s.append("rw-");
+        break;
+         case '7':
+         s.append("rwx");
+        break;
+      }
+      s.append("/");
+    }
+    s.append(' ');
 
     // append the name
     s.append( name ) ;

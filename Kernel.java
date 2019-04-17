@@ -1635,10 +1635,9 @@ public static void chmod(String path, short newmode){
   
    try{ indexNodeNumber = findIndexNode( path , nodeToChange ) ;}catch(Exception e){}
    FileSystem fileSystem = openFileSystems[ROOT_FILE_SYSTEM] ;
-   try{fileSystem.readIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
+  // try{fileSystem.readIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
    
   if(process.getUid() == 0 || process.getUid() == nodeToChange.getUid()){
-    //newmode = Short.parseShort(Short.toString(newmode),8);
     if(newmode >= 0 && newmode <= 0777){
       nodeToChange.setMode(newmode);
      try{ fileSystem.writeIndexNode(nodeToChange, indexNodeNumber);}catch(IOException e){}
